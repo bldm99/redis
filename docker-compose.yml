@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    image: linkextractor-api:step5-python
+    build: ./api
+    ports:
+      - "5000:5000"
+    environment:
+      - REDIS_URL=redis://redis:6379
+  redis:
+    image: redis
