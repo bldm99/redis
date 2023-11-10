@@ -38,11 +38,43 @@ valores = pd.DataFrame(users)
 valores = valores.fillna(0)
 users_dict = valores.to_dict(orient='index')
 
+peliculas = pd.read_csv("peli.csv" , sep=",")
+newpe = peliculas.fillna(0)
+
+def coseno(name):
+
+  #b = newpe.columns[8]
+  
+  dot_product = 0
+  magnitude_a = 0
+  magnitude_b = 0
+  suma = 0
+  for index , row in newpe.iterrows():
+      suma += 1
+      if (row.vanessa ==  0 or row[name] == 0 ):
+        dot_product = dot_product
+ 
+      else :
+        dot_product += row.vanessa * row[name]
+        magnitude_a += row.vanessa ** 2
+        magnitude_b += row[name]  ** 2
+  magnitude_a = magnitude_a ** 0.5 
+  magnitude_b = magnitude_b ** 0.5
+  #print(suma)
+  cosine_similarity = dot_product / (magnitude_a * magnitude_b)
+  return cosine_similarity
+
+nombres = [columna for columna in newpe.columns if columna not in ["Unnamed: 0", "vanessa"]]
+valores = {}
+for x in nombres:
+    r = coseno(x)  # Reemplaza 'coseno(x)' con la función que desees utilizar
+    valores[x] = r
 
 
+print(valores)
 # Tu función para extraer los datos
 def extract_links():
     
-    return users_dict
+    return valores
 
 
