@@ -19,7 +19,7 @@ valoresfinal = {}
 
 
 
-@app.route('/api/nueva_ruta', methods=['POST'])
+@app.route('/api/valor', methods=['POST'])
 def recibir_datos():
     if request.method == 'POST':
         data = request.get_json()  # Obtiene los datos en formato JSON desde la solicitud
@@ -69,7 +69,8 @@ def recibir_datos():
 @app.route('/api/valor', methods=['GET'])
 def get_valores():
     #return jsonify(total)
-    return jsonify(valoresfinal)
+    users_data = valoresfinal
+    return jsonify(users_data)
 
 
 

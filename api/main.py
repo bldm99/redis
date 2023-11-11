@@ -56,6 +56,8 @@ def recibir_datos():
         for x in nombres:
             r = coseno(x)  # Reemplaza 'coseno(x)' con la función que desees utilizar
             valoresfinal[x] = r
+              # Almacena los valores finales en Redis
+        redis_conn.set('valoresfinal', json.dumps(valoresfinal))
 
 
         return jsonify(nombre)
@@ -68,17 +70,12 @@ def recibir_datos():
 @app.route('/api/valor', methods=['GET'])
 def get_users():
     # Intenta recuperar datos desde Redis
-    cached_data = redis_conn.get('cached_data')
+    cached_data = redis_conn.get('valoresfinal') 
     if cached_data:
         return jsonify(json.loads(cached_data))
+    else:
+        return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
 
-    # Si no hay datos en Redis, genera los datos y almacénalos en Redis
-    users_data = valoresfinal
-
-    # Almacena los datos en Redis con una clave y un tiempo de vencimiento (por ejemplo, 3600 segundos)
-    redis_conn.set('cached_data', json.dumps(users_data), ex=3600)
-
-    return jsonify(users_data)
 
 
 
