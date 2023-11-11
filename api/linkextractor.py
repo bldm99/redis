@@ -8,7 +8,6 @@ users = {"Angelica": {"Blues Traveler": 3.5, "Broken Bells": 2.0,
  "Norah Jones": 4.5, "Phoenix": 5.0,
  "Slightly Stoopid": 1.5,
  "The Strokes": 2.5, "Vampire Weekend": 2.0},
-
  "Bill": {"Blues Traveler": 2.0, "Broken Bells": 3.5,
  "Deadmau5": 4.0, "Phoenix": 2.0,
  "Slightly Stoopid": 3.5, "Vampire Weekend": 3.0},
@@ -42,9 +41,6 @@ peliculas = pd.read_csv("peli.csv" , sep=",")
 newpe = peliculas.fillna(0)
 
 def coseno(name):
-
-  #b = newpe.columns[8]
-  
   dot_product = 0
   magnitude_a = 0
   magnitude_b = 0
@@ -76,5 +72,3 @@ print(valores)
 def extract_links():
     
     return valores
-
-
