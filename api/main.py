@@ -22,11 +22,18 @@ valoresfinal = {}
 
 @app.route('/api/valor', methods=['POST'])
 def recibir_datos():
+    global valoresfinal
     if request.method == 'POST':
         data = request.get_json()  
         nombre = data.get('obj')  
 
-        total.update(nombre)
+        peli = pd.DataFrame(nombre)
+        data = peli['rating'].value_counts().sort_index(ascending=False)
+        diccionario_resultante = data.to_dict()
+        valoresfinal = diccionario_resultante
+
+
+        '''total.update(nombre)
         valores = pd.DataFrame(total)
         valores = valores.fillna(0)
 
@@ -55,7 +62,7 @@ def recibir_datos():
         for x in nombres:
             r = coseno(x)  
             valoresfinal[x] = r
-              # Almacena los valores finales en Redis
+              # Almacena los valores finales en Redis'''
         redis_conn.set('valoresfinal', json.dumps(valoresfinal))
 
 
