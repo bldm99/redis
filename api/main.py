@@ -65,6 +65,7 @@ def recibir_datos():
 #----------------------------------------------------------------
 
 print("holmundo")
+print("holmundo2")
 
 @app.route('/api/valor', methods=['GET'])
 def get_users():
