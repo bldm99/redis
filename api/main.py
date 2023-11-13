@@ -4,7 +4,7 @@ import os
 import json
 import redis
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS , cross_origin
 import pandas as pd
 
 app = Flask(__name__)
@@ -64,8 +64,7 @@ def recibir_datos():
         return jsonify({"mensaje": "Esta ruta solo acepta solicitudes POST"})
 #----------------------------------------------------------------
 
-print("holmundo")
-print("holmundo2")
+
 
 @app.route('/api/valor', methods=['GET'])
 def get_users():
