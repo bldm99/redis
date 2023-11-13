@@ -64,7 +64,7 @@ def recibir_datos():
         return jsonify({"mensaje": "Esta ruta solo acepta solicitudes POST"})
 #----------------------------------------------------------------
 
-
+print("holmundo")
 
 @app.route('/api/valor', methods=['GET'])
 def get_users():
