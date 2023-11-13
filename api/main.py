@@ -4,10 +4,12 @@ import os
 import json
 import redis
 from flask import Flask, request, jsonify
-from linkextractor import extract_links
+from flask_cors import CORS
 import pandas as pd
 
 app = Flask(__name__)
+CORS(app)
+
 redis_conn = redis.from_url(os.getenv("REDIS_URL", "redis://localhost:6379"))
 
 @app.route("/")
@@ -21,12 +23,9 @@ valoresfinal = {}
 @app.route('/api/valor', methods=['POST'])
 def recibir_datos():
     if request.method == 'POST':
-        data = request.get_json()  # Obtiene los datos en formato JSON desde la solicitud
-        nombre = data.get('obj')  # Suponiendo que esperas un campo 'nombre' en los datos
+        data = request.get_json()  
+        nombre = data.get('obj')  
 
-        # Haz algo con el nombre, por ejemplo, imprímelo
-        #print(f"Nombre recibido: {nombre}")
-        #total.update(nombre)
         total.update(nombre)
         valores = pd.DataFrame(total)
         valores = valores.fillna(0)
@@ -54,7 +53,7 @@ def recibir_datos():
         nombres = [columna for columna in valores.columns if columna not in ["Unnamed: 0", "Angelica"]]
         
         for x in nombres:
-            r = coseno(x)  # Reemplaza 'coseno(x)' con la función que desees utilizar
+            r = coseno(x)  
             valoresfinal[x] = r
               # Almacena los valores finales en Redis
         redis_conn.set('valoresfinal', json.dumps(valoresfinal))
@@ -75,8 +74,6 @@ def get_users():
         return jsonify(json.loads(cached_data))
     else:
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
-
-
 
 
 app.run(host="0.0.0.0")
