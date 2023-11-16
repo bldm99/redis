@@ -4,3 +4,5 @@ redis
 requests
 pandas
 flask-cors
+numpy
+scipy

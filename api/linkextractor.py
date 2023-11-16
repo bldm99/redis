@@ -67,6 +67,13 @@ for x in nombres:
     valores[x] = r
 
 
+
+def columnas(df , a1 ,a2 ,x):
+    # Group by 'userId' and 'movieId' and calculate the mean of 'rating'
+    consolidated_df1 = df.groupby([a1, a2])[x].mean().unstack()
+    return consolidated_df1
+
+
 print(valores)
 # Tu función para extraer los datos
 def extract_links():
