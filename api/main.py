@@ -45,7 +45,7 @@ def recibir_datos():
         def consolidate_data2(df , a1 ,a2 ,x):
             consolidated_df1 = df.groupby([a1, a2])[x].mean().unstack()
             return consolidated_df1
-        consolidated_dfmi = consolidate_data2(peli, 'userId', 'movieId', 'rating')
+        consolidated_dfmi = consolidate_data2(peli, col1, col2, col3)
         consolidated_dfmi = consolidated_dfmi.fillna(0)
 
 
