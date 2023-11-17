@@ -37,12 +37,17 @@ def recibir_datos():
 
         peli = pd.DataFrame(nombre)
 
+
+        peli['rating'] = pd.to_numeric(peli['rating'], errors='coerce')
+        #peli['movieId'] = pd.to_numeric(peli['movieId'], errors='coerce')
+        peli['userId'] = pd.to_numeric(peli['userId'], errors='coerce')
+
         def consolidate_data2(df , a1 ,a2 ,x):
             consolidated_df1 = df.groupby([a1, a2])[x].mean().unstack()
             return consolidated_df1
-
-        consolidated_dfmi = consolidate_data2(peli, 'userId', 'movieId','rating')
+        consolidated_dfmi = consolidate_data2(peli, 'userId', 'movieId', 'rating')
         consolidated_dfmi = consolidated_dfmi.fillna(0)
+
 
         def computeNearestNeighbor(dataframe, target_user, distance_metric=cityblock):
             distances = np.zeros(len(dataframe))  # Initialize a NumPy array
