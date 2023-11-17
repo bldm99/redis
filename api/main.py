@@ -37,7 +37,12 @@ def recibir_datos():
 
         peli = pd.DataFrame(nombre)
 
-        consolidated_dfmi = columnas(peli, col1 , col2 , col3)
+        def consolidate_data2(df , a1 ,a2 ,x):
+            consolidated_df1 = df.groupby([a1, a2])[x].mean().unstack()
+            return consolidated_df1
+
+        consolidated_dfmi = consolidate_data2(peli, 'userId', 'movieId','rating')
+        consolidated_dfmi = consolidated_dfmi.fillna(0)
 
         def computeNearestNeighbor(dataframe, target_user, distance_metric=cityblock):
             distances = np.zeros(len(dataframe))  # Initialize a NumPy array
@@ -46,7 +51,7 @@ def recibir_datos():
                 if index == target_user:
                     continue  # Skip the target user itself
                 # Calculate the distance between the target user and the current user
-                distance = distance_metric(dataframe.loc[target_user].fillna(0), row.fillna(0))
+                distance = distance_metric(dataframe.loc[target_user], row)
                 distances[i] = distance
             
             sorted_indices = np.argsort(distances)
