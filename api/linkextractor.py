@@ -37,7 +37,7 @@ valores = pd.DataFrame(users)
 valores = valores.fillna(0)
 users_dict = valores.to_dict(orient='index')
 
-peliculas = pd.read_csv("peli.csv" , sep=",")
+'''peliculas = pd.read_csv("peli.csv" , sep=",")
 newpe = peliculas.fillna(0)
 
 def coseno(name):
@@ -64,7 +64,7 @@ nombres = [columna for columna in newpe.columns if columna not in ["Unnamed: 0",
 valores = {}
 for x in nombres:
     r = coseno(x)  # Reemplaza 'coseno(x)' con la función que desees utilizar
-    valores[x] = r
+    valores[x] = r'''
 
 
 
@@ -74,8 +74,4 @@ def columnas(df , a1 ,a2 ,x):
     return consolidated_df1
 
 
-print(valores)
-# Tu función para extraer los datos
-def extract_links():
-    
-    return valores
+
