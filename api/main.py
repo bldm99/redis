@@ -38,14 +38,17 @@ def recibir_datos():
         peli = pd.DataFrame(nombre)
 
 
-        peli['rating'] = pd.to_numeric(peli['rating'], errors='coerce')
+        peli[col3] = pd.to_numeric(peli[col3], errors='coerce')
         #peli['movieId'] = pd.to_numeric(peli['movieId'], errors='coerce')
-        peli['userId'] = pd.to_numeric(peli['userId'], errors='coerce')
+        peli[col1] = pd.to_numeric(peli[col1], errors='coerce')
 
-        def consolidate_data2(df , a1 ,a2 ,x):
+        '''def consolidate_data2(df , a1 ,a2 ,x):
             consolidated_df1 = df.groupby([a1, a2])[x].mean().unstack()
             return consolidated_df1
         consolidated_dfmi = consolidate_data2(peli, col1, col2, col3)
+        consolidated_dfmi = consolidated_dfmi.fillna(0)'''
+
+        consolidated_dfmi = columnas(peli, col1, col2, col3)
         consolidated_dfmi = consolidated_dfmi.fillna(0)
 
 
