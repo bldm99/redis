@@ -42,31 +42,27 @@ def recibir_datos():
         #peli['movieId'] = pd.to_numeric(peli['movieId'], errors='coerce')
         peli[col1] = pd.to_numeric(peli[col1], errors='coerce')
 
-        '''def consolidate_data2(df , a1 ,a2 ,x):
-            consolidated_df1 = df.groupby([a1, a2])[x].mean().unstack()
-            return consolidated_df1
-        consolidated_dfmi = consolidate_data2(peli, col1, col2, col3)
-        consolidated_dfmi = consolidated_dfmi.fillna(0)'''
 
         consolidated_dfmi = columnas(peli, col1, col2, col3)
         consolidated_dfmi = consolidated_dfmi.fillna(0)
 
 
         def computeNearestNeighbor(dataframe, target_user, distance_metric=cityblock):
-            distances = np.zeros(len(dataframe))  # Initialize a NumPy array
-            # Iterate over each row (user) in the DataFrame
+            distances = np.zeros(len(dataframe))
+            target_row = dataframe.loc[target_user]  
             for i, (index, row) in enumerate(dataframe.iterrows()):
                 if index == target_user:
-                    continue  # Skip the target user itself
-                # Calculate the distance between the target user and the current user
-                distance = distance_metric(dataframe.loc[target_user], row)
+                    continue  
+                
+                non_zero_values = (target_row != 0) & (row != 0)
+                distance = distance_metric(target_row[non_zero_values].fillna(0), row[non_zero_values].fillna(0))
                 distances[i] = distance
             
             sorted_indices = np.argsort(distances)
             sorted_distances = distances[sorted_indices]
             return list(zip(dataframe.index[sorted_indices], sorted_distances))
-        # Example usage
-        # Assuming your DataFrame is named 'ratings_df'
+        
+
         target_user_id = 1
         neighborsmi = computeNearestNeighbor(consolidated_dfmi, target_user_id)
         diccionario_resultante = dict(neighborsmi)
