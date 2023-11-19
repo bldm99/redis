@@ -108,7 +108,8 @@ def get_users():
 def get_peliculas():
     peliculas_cached = redis_conn.get('peliculas') 
     if peliculas_cached:
-        return jsonify(peliculas_cached)
+        peliculas = json.loads(peliculas_cached)
+        return jsonify(peliculas)
     else:
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
     
