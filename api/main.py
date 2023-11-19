@@ -31,10 +31,14 @@ def recibir_datos():
     if request.method == 'POST':
         data = request.get_json()  
         nombre = data.get('obj')  
+        
 
         col1 = data.get('col1')
         col2 = data.get('col2')
         col3 = data.get('col3')
+
+        numero = data.get('numero')  
+        numerox = int(numero)
 
         peli = pd.DataFrame(nombre)
 
@@ -64,7 +68,7 @@ def recibir_datos():
             return list(zip(dataframe.index[sorted_indices], sorted_distances))
         
 
-        target_user_id = 1
+        target_user_id = numerox
         neighborsmi = computeNearestNeighbor(consolidated_dfmi, target_user_id)
         diccionario_resultante = dict(neighborsmi)
         valoresfinal = diccionario_resultante
