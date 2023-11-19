@@ -70,7 +70,7 @@ def recibir_datos():
         valoresfinal = diccionario_resultante
 
         #pruebas
-        cd2 = pd.DataFrame(diccionario_resultante)
+        cd2 = pd.DataFrame(neighborsmi)
         cd2.columns = ['Id_user', 'Distancias']
 
         primeros = cd2['Id_user'].unique().tolist()[:10]
@@ -104,9 +104,9 @@ def get_users():
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
 
 @app.route('/api/peliculas', methods=['GET'])
-def get_users():
+def get_peliculas():
     
-    return jsonify(json.loads(peliculasp))
+    return jsonify(peliculasp)
     
 
 app.run(host="0.0.0.0")
