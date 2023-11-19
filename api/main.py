@@ -27,7 +27,7 @@ peliculasp = {}
 
 @app.route('/api/valor', methods=['POST'])
 def recibir_datos():
-    global valoresfinal
+    global valoresfinal , peliculasp
     if request.method == 'POST':
         data = request.get_json()  
         nombre = data.get('obj')  
@@ -85,6 +85,7 @@ def recibir_datos():
         valoresfinal = diccionario_resultante'''
 
         redis_conn.set('valoresfinal', json.dumps(valoresfinal))
+        redis_conn.set('peliculas', json.dumps(peliculasp))
 
 
         return jsonify(valoresfinal)
@@ -105,8 +106,11 @@ def get_users():
 
 @app.route('/api/peliculas', methods=['GET'])
 def get_peliculas():
-    
-    return jsonify(peliculasp)
+    peliculas_cached = redis_conn.get('peliculas') 
+    if peliculas_cached:
+        return jsonify(peliculas_cached)
+    else:
+        return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
     
 
 app.run(host="0.0.0.0")
