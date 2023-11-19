@@ -23,6 +23,7 @@ def index():
 #----------------------------------------------------------------
 total = {}
 valoresfinal = {}
+peliculasp = {}
 
 @app.route('/api/valor', methods=['POST'])
 def recibir_datos():
@@ -68,6 +69,16 @@ def recibir_datos():
         diccionario_resultante = dict(neighborsmi)
         valoresfinal = diccionario_resultante
 
+        #pruebas
+        cd2 = pd.DataFrame(diccionario_resultante)
+        cd2.columns = ['Id_user', 'Distancias']
+
+        primeros = cd2['Id_user'].unique().tolist()[:10]
+        resul = peli.query('userId in @primeros')
+        newx = resul.query('rating == 5.0')['movieId'].drop_duplicates()
+        dictionary_final = dict(zip(newx.index, newx.values))
+        peliculasp = dictionary_final
+
         '''peli = pd.DataFrame(nombre)
         data = peli['rating'].value_counts().sort_index(ascending=False)
         diccionario_resultante = data.to_dict()
@@ -92,5 +103,10 @@ def get_users():
     else:
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
 
+@app.route('/api/peliculas', methods=['GET'])
+def get_users():
+    
+    return jsonify(json.loads(peliculasp))
+    
 
 app.run(host="0.0.0.0")
