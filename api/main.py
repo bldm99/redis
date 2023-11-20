@@ -25,6 +25,19 @@ total = {}
 valoresfinal = {}
 peliculasp = {}
 
+@app.route('/api/csv', methods=['POST'])
+def recibir_datos():
+   
+    if request.method == 'POST':
+        data = request.get_json()  
+        nombre = data.get('obj')  
+        redis_conn.set('csv', json.dumps(nombre))
+        return jsonify({"csv cargado correctamente a redis"})
+    else:
+        return jsonify({"mensaje": "Esta ruta solo acepta solicitudes POST"})
+    
+
+
 @app.route('/api/valor', methods=['POST'])
 def recibir_datos():
     global valoresfinal , peliculasp
@@ -117,5 +130,15 @@ def get_peliculas():
     else:
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
     
+
+@app.route('/api/csv', methods=['GET'])
+def get_peliculas():
+    csv_cached = redis_conn.get('csv') 
+    if csv_cached:
+        csvx = json.loads(csv_cached)
+        return jsonify(csvx)
+    else:
+        return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
+
 
 app.run(host="0.0.0.0")
