@@ -43,7 +43,10 @@ def recibir_datos():
     global valoresfinal , peliculasp
     if request.method == 'POST':
         data = request.get_json()  
-        nombre = data.get('obj')  
+
+        csv_cached = redis_conn.get('csv')
+
+        #nombre = data.get('obj')  
         
 
         col1 = data.get('col1')
@@ -53,7 +56,8 @@ def recibir_datos():
         numero = data.get('numero')  
         numerox = int(numero)
 
-        peli = pd.DataFrame(nombre)
+        #peli = pd.DataFrame(nombre)
+        peli = pd.DataFrame(csv_cached)
 
 
         peli[col3] = pd.to_numeric(peli[col3], errors='coerce')
