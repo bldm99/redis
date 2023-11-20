@@ -26,7 +26,7 @@ valoresfinal = {}
 peliculasp = {}
 
 @app.route('/api/csv', methods=['POST'])
-def recibir_datos():
+def recibir_csv():
    
     if request.method == 'POST':
         data = request.get_json()  
