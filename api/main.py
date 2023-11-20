@@ -45,6 +45,7 @@ def recibir_datos():
         data = request.get_json()  
 
         csv_cached = redis_conn.get('csv')
+        csv_data = json.loads(csv_cached)
 
         #nombre = data.get('obj')  
         
@@ -57,7 +58,7 @@ def recibir_datos():
         numerox = int(numero)
 
         #peli = pd.DataFrame(nombre)
-        peli = pd.DataFrame(csv_cached)
+        peli = pd.DataFrame(csv_data)
 
 
         peli[col3] = pd.to_numeric(peli[col3], errors='coerce')
