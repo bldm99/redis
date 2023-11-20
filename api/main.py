@@ -132,7 +132,7 @@ def get_peliculas():
     
 
 @app.route('/api/csv', methods=['GET'])
-def get_peliculas():
+def get_csv():
     csv_cached = redis_conn.get('csv') 
     if csv_cached:
         csvx = json.loads(csv_cached)
