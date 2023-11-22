@@ -38,7 +38,7 @@ def recibir_csv():
     
 
 
-@app.route('/api/valor2', methods=['POST'])
+@app.route('/api/valordos', methods=['POST'])
 def recibir_datos():
     global valoresfinal , peliculasp
     if request.method == 'POST':
@@ -117,7 +117,7 @@ def recibir_datos():
 
 
 
-@app.route('/api/valor2', methods=['GET'])
+@app.route('/api/valordos', methods=['GET'])
 def get_users():
     # Intenta recuperar datos desde Redis
     cached_data = redis_conn.get('valoresfinal') 
