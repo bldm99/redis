@@ -18,7 +18,7 @@ redis_conn = redis.from_url(os.getenv("REDIS_URL", "redis://localhost:6379"))
 
 @app.route("/")
 def index():
-    return "Usage: http://<hostname>[:<prt>]/api/<url>"
+    return "Usage: http://<hostname>[:<prt>]/apix/<url>"
 
 #----------------------------------------------------------------
 total = {}
@@ -38,7 +38,7 @@ def recibir_csv():
     
 
 
-@app.route('/api/valordos', methods=['POST'])
+@app.route('/apix/valor', methods=['POST'])
 def recibir_datos():
     global valoresfinal , peliculasp
     if request.method == 'POST':
@@ -117,7 +117,7 @@ def recibir_datos():
 
 
 
-@app.route('/api/valordos', methods=['GET'])
+@app.route('/apix/valor', methods=['GET'])
 def get_users():
     # Intenta recuperar datos desde Redis
     cached_data = redis_conn.get('valoresfinal') 
@@ -126,7 +126,7 @@ def get_users():
     else:
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
 
-@app.route('/api/peliculas', methods=['GET'])
+@app.route('/apix/peliculas', methods=['GET'])
 def get_peliculas():
     peliculas_cached = redis_conn.get('peliculas') 
     if peliculas_cached:
@@ -136,7 +136,7 @@ def get_peliculas():
         return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
     
 
-@app.route('/api/csv', methods=['GET'])
+@app.route('/apix/csv', methods=['GET'])
 def get_csv():
     csv_cached = redis_conn.get('csv') 
     if csv_cached:
