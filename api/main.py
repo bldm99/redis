@@ -59,6 +59,7 @@ def recibir_datos():
 
         #peli = pd.DataFrame(nombre)
         peli = pd.DataFrame(csv_data)
+        peli = peli.head(1000)
 
 
         peli[col3] = pd.to_numeric(peli[col3], errors='coerce')

@@ -18,7 +18,7 @@ services:
       - my_network
   
   api2:
-    image: linkextractor-api:step5-python
+    image: instancesecond:step5-python
     build: ./api2
     ports:
       - "5001:5000"

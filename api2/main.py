@@ -124,7 +124,7 @@ def get_users():
     if cached_data:
         return jsonify(json.loads(cached_data))
     else:
-        return jsonify({"mensaje": "No hay valores finales almacenados en Redis"})
+        return jsonify({"mensaje": "No hay valores finales almacenados en Redis para la instancia 2"})
 
 @app.route('/apix/peliculas', methods=['GET'])
 def get_peliculas():
