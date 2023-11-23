@@ -106,11 +106,19 @@ def recibir_datos():
         diccionario_resultante = data.to_dict()
         valoresfinal = diccionario_resultante'''
 
-        redis_conn.set('valoresfinal', json.dumps(valoresfinal))
+        cached_data = redis_conn.get('valoresfinal') #300 valores
+
+        dicionariototal = {cached_data , valoresfinal}
+
+
+
+        #redis_conn.set('valoresfinal', json.dumps(valoresfinal))
+        redis_conn.set('valoresfinal', json.dumps(dicionariototal))
         redis_conn.set('peliculas', json.dumps(peliculasp))
 
 
-        return jsonify(valoresfinal)
+        #return jsonify(valoresfinal)
+        return jsonify(dicionariototal)
     else:
         return jsonify({"mensaje": "Esta ruta solo acepta solicitudes POST"})
 #----------------------------------------------------------------
