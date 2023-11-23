@@ -68,6 +68,7 @@ def recibir_datos():
 
 
         consolidated_dfmi = columnas(peli, col1, col2, col3)
+        consolidated_dfmi = consolidated_dfmi.head(300)
         consolidated_dfmi = consolidated_dfmi.fillna(0)
 
 
